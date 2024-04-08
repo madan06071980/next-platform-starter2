@@ -1,0 +1,43 @@
+<form name="contact" method="POST" data-netlify="true" action="success.html" enctype="multipart/form-data">
+  <p>
+    <label>Your Name: <input type="text" name="name" /></label>
+  </p>
+  <p>
+    <label>Your Email: <input type="email" name="email" /></label>
+  </p>
+  <p>
+    <label>Your Role: <select name="role[]" multiple>
+      <option value="leader">Leader</option>
+      <option value="follower">Follower</option>
+    </select></label>
+  </p>
+  <p>
+    <label>
+      <span>Add file:</span>
+      <input name="file" type="file"/>
+    </label>
+  </p>
+  <p>
+    <label>Message: <textarea name="message"></textarea></label>
+  </p><input type="hidden" name="form-name" value="name_of_my_form" />
+  <p>
+    <button type="submit">Send</button>
+  </p><input type="hidden" name="form-name" value="contact">
+
+</form>
+
+<script>document.forms.fileForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const result = document.querySelector(".result");
+  fetch("/", {
+    body: new FormData(event.target),
+    method: "POST",
+  })
+    .then(() => {
+      result.innerText = "Success";
+    })
+    .catch((error) => {
+      result.innerText = `Failed: ${error}`;
+    });
+});
+</script>
